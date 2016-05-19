@@ -1,6 +1,5 @@
 public class InitialLogic
 {
-   
    private static int[][] board;;
    
    public static int getDigit()
