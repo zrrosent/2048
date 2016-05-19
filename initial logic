@@ -1,26 +1,46 @@
-// 2048 logic
-
 public class InitialLogic
 {
    
    private static int[][] board;;
    
+   public static int getDigit()
+   {
+      int[] g = new int [8];
+      for (int i = 0; i <= 6; i++)
+      { 
+         g[i] = 2;
+      }
+            
+      g[7] = 4;
+      
+      return g[(int)(Math.random()*8)];
+   }
+   
+   public static int randomDigit()
+   {
+      return (int)(Math.random()*4);
+   }
+   
    public static void setBoard()
    {
       board = new int[4][4];
-      int r1 = 0;
-      int r2 = r1;
-    
-      while ( r1 == r2 )
+      int r1, r2, r3, r4;
+      r1 = 0; r2 = r1;
+   
+      r1 = randomDigit();
+      r2 = randomDigit();
+      
+      board[r1][r2] = getDigit();  
+      
+      r3 = r1; r4 = r2;  
+      
+      while (r3 == r1 && r4 == r2) 
       {
-      
-      r1 = (int)(Math.random()*3);
-      r2 = (int)(Math.random()*4) ;
-      
+         r3 = randomDigit();
+         r4 = randomDigit();
+         
+         board[r3][r4] = getDigit();
       }
-      
-      board[r1][r2] = 2;
-      board[r1+1][r2] = 2;
    }
    
    public static void main(String[] args)
@@ -34,7 +54,6 @@ public class InitialLogic
             System.out.print(board[i][j]);
          }
          System.out.println();
-      } 
-      
+      }
    }
 }
