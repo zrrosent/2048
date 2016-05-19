@@ -1,16 +1,23 @@
 public class InitialLogic
 {
-   private static int[][] board;;
+   //private static String[][] board;
+	
+	private static String[][] board={
+													{"'","'","'","'"},
+													{"'","'","'","'"},
+													{"'","'","'","'"},
+													{"2","2","2","'"}
+												 };
    
-   public static int getDigit()
+   public static String getDigit()
    {
-      int[] g = new int [8];
+      String[] g = new String[8];
       for (int i = 0; i <= 6; i++)
       { 
-         g[i] = 2;
+         g[i] = "2";
       }
             
-      g[7] = 4;
+      g[7] = "4";
       
       return g[(int)(Math.random()*8)];
    }
@@ -22,12 +29,20 @@ public class InitialLogic
    
    public static void setBoard()
    {
-      board = new int[4][4];
+      board = new String[4][4];
       int r1, r2, r3, r4;
       r1 = 0; r2 = r1;
    
       r1 = randomDigit();
       r2 = randomDigit();
+		
+		for (int i = 0; i < 4; i++)
+      {
+         for (int j = 0; j < 4; j++)
+         {
+            board[i][j] = "'";
+         }
+      }
       
       board[r1][r2] = getDigit();  
       
@@ -41,12 +56,40 @@ public class InitialLogic
          board[r3][r4] = getDigit();
       }
    }
-   
-   public static void main(String[] args)
-   {
-      setBoard();
-      
-      for (int i = 0; i < 4; i++)
+	
+	public static void toRight(String a)
+	{
+		if (a == "d")
+		{
+			for (int i = 0; i < 4; i++)
+      	{
+         	for (int j = 0; j < 3; j++)
+         	{
+    				if (board[i][j] != "'")
+					{
+						while (board[i][j+1] == "'" || board[i][j] == board[i][j+1])
+						{					
+							if (board[i][j] == board[i][j+1])
+							{
+								int k = Integer.parseInt(board[i][j]);
+								board[i][j+1] = k*2 + "";
+								board[i][j] = "'";
+							}
+						
+							else if (board[i][j+1] == "'")
+							{
+								board[i][j+1] = board[i][j];
+								board[i][j] = "'";
+							}
+						}	        					
+         		}
+      		}
+			}
+		}
+	}
+ 
+	public static void printArr(String[][] board){
+		for (int i = 0; i < 4; i++)
       {
          for (int j = 0; j < 4; j++)
          {
@@ -54,5 +97,20 @@ public class InitialLogic
          }
          System.out.println();
       }
+	} 
+   
+   public static void main(String[] args)
+   {
+      //setBoard();
+      
+      printArr(board);
+		
+		String a = "d";
+		
+		toRight(a);
+		
+		System.out.println();
+		
+		printArr(board);
    }
 }
