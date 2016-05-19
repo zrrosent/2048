@@ -1,1 +1,40 @@
 // 2048 logic
+
+public class InitialLogic
+{
+   
+   private static int[][] board;;
+   
+   public static void setBoard()
+   {
+      board = new int[4][4];
+      int r1 = 0;
+      int r2 = r1;
+    
+      while ( r1 == r2 )
+      {
+      
+      r1 = (int)(Math.random()*3);
+      r2 = (int)(Math.random()*4) ;
+      
+      }
+      
+      board[r1][r2] = 2;
+      board[r1+1][r2] = 2;
+   }
+   
+   public static void main(String[] args)
+   {
+      setBoard();
+      
+      for (int i = 0; i < 4; i++)
+      {
+         for (int j = 0; j < 4; j++)
+         {
+            System.out.print(board[i][j]);
+         }
+         System.out.println();
+      } 
+      
+   }
+}
