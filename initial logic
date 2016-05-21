@@ -87,7 +87,68 @@ public class InitialLogic
       board[x][y] = getDigit();
    }
 	
-	public static void moveRight()
+	
+   
+   public static void makeMove(String a)
+   {
+      
+      toRight(a);
+      toUp(a);
+      //toLeft(a);
+     // toDown(a);
+   }
+   
+   public static void moveUp()
+   {
+      for (int i = 1; i <= 3; i++)
+      	{
+         	for (int j = 0; j <= 3; j++)
+         	{
+    				if (board[i][j] != "'")
+					{                     
+                  if (board[i-1][j] == "'")
+						   {
+						      board[i-1][j] = board[i][j];
+								board[i][j] = "'";
+							}	    
+                }
+             }
+          }
+    }
+    
+    public static void toUp(String a)
+    {
+      if (a.equals("w"))
+      {
+         moveUp();
+         {
+            for (int i = 1; i < 4; i++)
+      	   {
+         	   for (int j = 3; j >= 0; j--)
+         	   {
+                  if (board[i][j] != "'")
+                  {
+                     if (board[i][j].equals(board[i-1][j]))
+                     {
+                        int k = Integer.parseInt(board[i][j]);
+                        k = k*2;
+                        String ans = Integer.toString(k);
+                        board[i-1][j] = ans;
+                        board[i][j] = "'";
+                     }
+                  }
+                  moveUp();
+               }
+            } 
+	      } 
+         addNum();
+      }
+   }
+
+      
+      
+   
+   public static void moveRight()
 	{
 		
 			for (int i = 0; i < 4; i++)
@@ -106,12 +167,6 @@ public class InitialLogic
 			}
 		
 	}
-   
-   public static void makeMove(String a)
-   {
-      
-      toRight(a);
-   }
    
    public static void toRight(String a)
    {
@@ -172,4 +227,4 @@ public class InitialLogic
       }
    }
      
-}   
+}  
