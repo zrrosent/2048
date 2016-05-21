@@ -1,13 +1,29 @@
+import java.util.*;
+
 public class InitialLogic
 {
-   //private static String[][] board;
+   private static String[][] board;
+   
+   private static String w = "";
 	
-	private static String[][] board={
+	/*private static String[][] board={
 													{"2","4","4","2"},
 													{"2","2","2","2"},
 													{"'","2","2","2"},
 													{"2","2","2","'"}
 												 };
+   
+   
+   public static String userInput()
+   {
+      Scanner kb = new Scanner(System.in);
+      System.out.println("enter move");
+      w = kb.nextLine();
+      kb.close();
+      return w;
+   }
+      */
+      
    
    public static String getDigit()
    {
@@ -56,11 +72,24 @@ public class InitialLogic
          board[r3][r4] = getDigit();
       }
    }
+   
+   public static void addNum()
+   {
+      int x = randomDigit();
+      int y = randomDigit();
+      
+      while (board[x][y] != "'")
+      {
+         x = randomDigit();
+         y = randomDigit();
+      }
+      
+      board[x][y] = getDigit();
+   }
 	
-	public static void toRight(String a)
+	public static void moveRight()
 	{
-		if (a == "d")
-		{
+		
 			for (int i = 0; i < 4; i++)
       	{
          	for (int j = 2; j >= 0; j--)
@@ -75,32 +104,42 @@ public class InitialLogic
          		}
       		}
 			}
-		}
+		
 	}
    
-   public static void fixRight()
+   public static void makeMove(String a)
    {
-      toRight("d");
+      
+      toRight(a);
+   }
+   
+   public static void toRight(String a)
+   {
+      if (a.equals("d"))
       {
-         for (int i = 0; i < 4; i++)
-      	{
-         	for (int j = 3; j > 0; j--)
-         	{
-               if (board[i][j] != "'")
-               {
-                  if (board[i][j].equals(board[i][j-1]))
+         moveRight();
+         {
+            for (int i = 0; i < 4; i++)
+      	   {
+         	   for (int j = 3; j > 0; j--)
+         	   {
+                  if (board[i][j] != "'")
                   {
-                     int k = Integer.parseInt(board[i][j]);
-                     k = k*2;
-                     String ans = Integer.toString(k);
-                     board[i][j] = ans;
-                     board[i][j-1] = "'";
+                     if (board[i][j].equals(board[i][j-1]))
+                     {
+                        int k = Integer.parseInt(board[i][j]);
+                        k = k*2;
+                        String ans = Integer.toString(k);
+                        board[i][j] = ans;
+                        board[i][j-1] = "'";
+                     }
                   }
+                  moveRight();
                }
-               toRight("d");
-             }
-         } 
-	   } 
+            } 
+	      } 
+         addNum();
+      }
    }
    
    public static void printArr(String[][] board){
@@ -115,26 +154,22 @@ public class InitialLogic
 	}    
    public static void main(String[] args)
    {
-      //setBoard();
-      
-      printArr(board);
-		
-		String a = "d";
-		
-		//toRight(a);
-      fixRight();
-		
-		System.out.println();
-      
-		printArr(board);
-     
-      
-      fixRight();
-      
-      System.out.println();
+      setBoard();
       
       printArr(board);
       
+      Scanner kb = new Scanner(System.in);
+    
+      for (int i = 0; i<100; i++)
+      {
+	      System.out.println("enter move");
+         String z = kb.nextLine();
+         makeMove(z);
+         
+         System.out.println();
       
+		   printArr(board);
+      }
    }
-}
+     
+}   
