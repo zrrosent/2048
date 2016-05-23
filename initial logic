@@ -3,6 +3,7 @@ import java.util.*;
 public class InitialLogic
 {
    private static String[][] board;
+   private static int score, highscore;
    
    private static String w = "";
 	
@@ -85,36 +86,34 @@ public class InitialLogic
       }
       
       board[x][y] = getDigit();
-   }
-	
-	
+   }	
    
    public static void makeMove(String a)
    {
       
       toRight(a);
       toUp(a);
-      //toLeft(a);
-     // toDown(a);
+      toLeft(a);
+      toDown(a);
    }
    
    public static void moveUp()
    {
       for (int i = 1; i <= 3; i++)
-      	{
-         	for (int j = 0; j <= 3; j++)
-         	{
-    				if (board[i][j] != "'")
-					{                     
-                  if (board[i-1][j] == "'")
-						   {
-						      board[i-1][j] = board[i][j];
-								board[i][j] = "'";
-							}	    
-                }
-             }
-          }
-    }
+      {
+         for (int j = 0; j <= 3; j++)
+         {
+    		   if (board[i][j] != "'")
+				{                     
+               if (board[i-1][j] == "'")
+					{
+				      board[i-1][j] = board[i][j];
+						board[i][j] = "'";
+				   }	    
+            }
+         }
+      }
+   }
     
     public static void toUp(String a)
     {
@@ -135,6 +134,7 @@ public class InitialLogic
                         String ans = Integer.toString(k);
                         board[i-1][j] = ans;
                         board[i][j] = "'";
+                        score += k;
                      }
                   }
                   moveUp();
@@ -146,26 +146,71 @@ public class InitialLogic
    }
 
       
-      
+   public static void moveLeft()
+   {
+      for (int i = 0; i <= 3; i++)
+      {
+         for (int j = 3; j >= 1; j--)
+         {
+            if (board[i][j] != "'")
+            {                     
+               if (board[i][j-1] == "'")
+               {
+                  board[i][j-1] = board[i][j];
+                  board[i][j] = "'";
+               }       
+            }
+         }
+      }
+  }
+
+   public static void toLeft(String a)
+   {
+      if (a.equals("a"))
+      {
+         moveLeft();
+         {
+            for (int i = 0; i < 4; i++)
+            {
+               for (int j = 3; j >= 1; j--)
+               {
+                  if (board[i][j] != "'")
+                  {
+                     if (board[i][j].equals(board[i][j-1]))
+                     {
+                        int k = Integer.parseInt(board[i][j]);
+                        k = k*2;
+                        String ans = Integer.toString(k);
+                        board[i][j-1] = ans;
+                        board[i][j] = "'";
+                        score += k;
+                     }
+                  }
+                  moveLeft();
+               }
+            } 
+         } 
+         addNum();
+      }
+   }      
    
    public static void moveRight()
 	{
-		
-			for (int i = 0; i < 4; i++)
-      	{
-         	for (int j = 2; j >= 0; j--)
-         	{
-    				if (board[i][j] != "'")
-					{                     
-                  if (board[i][j+1] == "'")
-						   {
-						      board[i][j+1] = board[i][j];
-								board[i][j] = "'";
-							}	                     		  	        					
-         		}
-      		}
-			}
-		
+   
+	   for (int i = 0; i < 4; i++)
+      {
+         for (int j = 2; j >= 0; j--)
+         {
+    		   if (board[i][j] != "'")
+			   {                     
+               if (board[i][j+1] == "'")
+				   {
+		   	      board[i][j+1] = board[i][j];
+						board[i][j] = "'";
+               }	                     		  	        					
+         	}
+      	}
+		}		
 	}
    
    public static void toRight(String a)
@@ -187,6 +232,7 @@ public class InitialLogic
                         String ans = Integer.toString(k);
                         board[i][j] = ans;
                         board[i][j-1] = "'";
+                        score += k;
                      }
                   }
                   moveRight();
@@ -197,29 +243,117 @@ public class InitialLogic
       }
    }
    
-   public static void printArr(String[][] board){
+   
+   public static void moveDown()
+   {
+      for (int i = 0; i < 3; i++)
+      {
+            for (int j = 0; j <= 3; j++)
+            {
+               if (board[i][j] != "'")
+               {                     
+                  if (board[i+1][j] == "'")
+                  {
+                     board[i+1][j] = board[i][j];
+                     board[i][j] = "'";
+                  }       
+               }
+            }
+      }
+   }
+
+   public static void toDown(String a)
+   {
+      if (a.equals("s"))
+      {
+         moveDown();
+         {
+            for (int i = 0; i < 3; i++)
+            {
+               for (int j = 0; j <= 3; j++)
+               {
+                  if (board[i][j] != "'")
+                  {
+                     if (board[i][j].equals(board[i+1][j]))
+                     {
+                        int k = Integer.parseInt(board[i][j]);
+                        k = k*2;
+                        String ans = Integer.toString(k);
+                        board[i+1][j] = ans;
+                        board[i][j] = "'";
+                        score += k;
+                     }
+                  }
+                  moveDown();
+               }
+            } 
+         } 
+         addNum();
+      }
+   }
+
+   public static void printArr(String[][] board)
+   {
 		for (int i = 0; i < 4; i++)
       {
          for (int j = 0; j < 4; j++)
          {
-            System.out.print(board[i][j]);
+            System.out.print("  " + board[i][j] + "  ");
          }
          System.out.println();
       }
 	}    
    public static void main(String[] args)
-   {
+   {  
+      System.out.println("welcome to RyAn & DyLaN's version of 2048\n\n" +
+                         "enter 'w' to move up\n" +
+                         "enter 'd' to move right\n" +
+                         "enter 's' to move down\n" + 
+                         "enter 'a' to move\n" +
+                         "enter 'r' to restart\n" +
+                         "& enter 'q' to end\n");
+                         
+      System.out.println("enjoy!\n");
+      
       setBoard();
       
       printArr(board);
       
       Scanner kb = new Scanner(System.in);
-    
-      for (int i = 0; i<100; i++)
+                       
+      String input = "";
+      
+      while (input.equals("q") == false)
       {
 	      System.out.println("enter move");
-         String z = kb.nextLine();
-         makeMove(z);
+         input = kb.nextLine();
+         
+         if (input.equals("r") == true)
+         { 
+            if (score > highscore)
+            {
+               highscore = score;  
+            } 
+            System.out.println("final score: " + score);
+            System.out.println("highscore: " + highscore);
+            score = 0;
+            
+            setBoard();
+         }
+        
+         if (input.equals("q") == true)
+         {
+            if (score > highscore)
+            {
+               highscore = score;  
+            } 
+            System.out.println("thanks for playing!");
+            System.out.println("final score: " + score);
+            System.out.println("highscore: " + highscore);
+            break;
+         }
+
+         makeMove(input);
          
          System.out.println();
       
