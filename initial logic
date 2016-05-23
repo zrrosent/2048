@@ -309,7 +309,7 @@ public class InitialLogic
                          "enter 'w' to move up\n" +
                          "enter 'd' to move right\n" +
                          "enter 's' to move down\n" + 
-                         "enter 'a' to move\n" +
+                         "enter 'a' to move left\n" +
                          "enter 'r' to restart\n" +
                          "& enter 'q' to end\n");
                          
