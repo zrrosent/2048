@@ -68,6 +68,7 @@ public class GUI extends JFrame implements KeyListener
          board[r3][r4].setText(getDigit()+"");
       }
       
+      setColor();
       
       panel.add(s);
       //panel.add(hs);
@@ -83,11 +84,16 @@ public class GUI extends JFrame implements KeyListener
    {
       int x = randomDigit();
       int y = randomDigit();
-      
+      int i = 0;
       while (!board[x][y].getText().equals(""))
       {
+         if(i > 100)
+         {
+            gameOver();
+         }
          x = randomDigit();
          y = randomDigit();
+         i++;
       }
       
       board[x][y].setText(getDigit()+"");
@@ -284,23 +290,65 @@ public class GUI extends JFrame implements KeyListener
       //hs.setText("Highscore: " + highscore);
    }
    
-   public void gameOver()
+   public static void gameOver()
+   {
+      JOptionPane.showMessageDialog(null, "Game Over :(");
+      frame.dispose();
+   }
+   
+   public void setColor()
    {
       for(int i = 0; i < board.length; i++)
       {
          for(int j = 0; j < board[0].length; j++)
          {
-            if(board[i][j].getText().equals(""))
-               return;
+            String value = board[i][j].getText();
+            switch(value)
+            {
+               case "2" : 
+                  board[i][j].setBackground(new Color(238,232,170));
+                  break;
+               case "4" : 
+                  board[i][j].setBackground(new Color(240,230,140));
+                  break;
+               case "8" : 
+                  board[i][j].setBackground(new Color(255,127,80));
+                  break;
+                case "16" : 
+                  board[i][j].setBackground(new Color(255,165,0));
+                  break;
+                case "32" : 
+                  board[i][j].setBackground(new Color(255,99,71));
+                  break;
+                case "64" : 
+                  board[i][j].setBackground(new Color(255,0,0));
+                  break;
+                case "128" : 
+                  board[i][j].setBackground(new Color(218,165,32));
+                  break;
+                case "256" : 
+                  board[i][j].setBackground(new Color(200,140,20));
+                  break;
+                case "512" : 
+                  board[i][j].setBackground(new Color(184,134,11));
+                  break;
+                case "1024" : 
+                  board[i][j].setBackground(new Color(220,180,0));
+                  break;
+                case "2048" : 
+                  board[i][j].setBackground(new Color(255,215,0));
+                  break;
+                case "4096" : 
+                  board[i][j].setBackground(new Color(128,128,128));
+                  break;
+                case "8192" : 
+                  board[i][j].setBackground(new Color(0,0,0));
+                  break;
+                default: 
+                  board[i][j].setBackground(new Color(255,255,255));
+            }
          }
       }
-      JOptionPane.showMessageDialog(null, "Game Over :(");
-      try
-      {
-        Thread.sleep(1000); 
-      }
-      catch(Exception e){}
-      frame.dispose();
    }
    
    //keyPressed
@@ -311,37 +359,33 @@ public class GUI extends JFrame implements KeyListener
       {
          toUp();
          e.consume();
-         gameOver();
+         
             
       }
       else if(keyCode == KeyEvent.VK_PAGE_DOWN || keyCode == KeyEvent.VK_DOWN)
       {
          toDown();
          e.consume();
-         gameOver();
+         
       }
       else if(keyCode == KeyEvent.VK_HOME || keyCode == KeyEvent.VK_LEFT)
       {
          toLeft();
          e.consume();
-         gameOver();
+         
       }
       else if(keyCode == KeyEvent.VK_END || keyCode == KeyEvent.VK_RIGHT)
       {
          toRight();
          e.consume();
-         gameOver();
-      }
-      else
-      {
-         JOptionPane.showMessageDialog(null, "Invalid Key\n Use The Arrow Keys To Make A Move");
+         
       }
    }
    
    //keyReleased
    public void keyReleased(KeyEvent e)
    {
-      
+      setColor();
    }
    
    //last method from interface
