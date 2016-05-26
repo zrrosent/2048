@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.io.File;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
 
 public class GUI extends JFrame implements KeyListener
 {
@@ -294,6 +297,7 @@ public class GUI extends JFrame implements KeyListener
    {
       JOptionPane.showMessageDialog(null, "Game Over :(");
       frame.dispose();
+      System.exit(0);
    }
    
    public void setColor()
@@ -358,27 +362,27 @@ public class GUI extends JFrame implements KeyListener
       if(keyCode == KeyEvent.VK_PAGE_UP || keyCode == KeyEvent.VK_UP)
       {
          toUp();
-         e.consume();
          
+         e.consume();         
             
       }
       else if(keyCode == KeyEvent.VK_PAGE_DOWN || keyCode == KeyEvent.VK_DOWN)
       {
-         toDown();
-         e.consume();
          
+         toDown();
+         e.consume();         
       }
       else if(keyCode == KeyEvent.VK_HOME || keyCode == KeyEvent.VK_LEFT)
       {
-         toLeft();
-         e.consume();
          
+         toLeft();
+         e.consume();         
       }
       else if(keyCode == KeyEvent.VK_END || keyCode == KeyEvent.VK_RIGHT)
       {
-         toRight();
-         e.consume();
          
+         toRight();
+         e.consume();         
       }
    }
    
@@ -386,12 +390,32 @@ public class GUI extends JFrame implements KeyListener
    public void keyReleased(KeyEvent e)
    {
       setColor();
+      soundFX();
    }
    
    //last method from interface
    public void keyTyped(KeyEvent e)
    {
       e.consume();
+   }
+   
+   public static void soundFX()
+   {
+      File audio = new File("SlideSound.WAV");
+      try
+      {
+         Thread thread2 = new Thread();
+         Clip clip = AudioSystem.getClip();
+         clip.open(AudioSystem.getAudioInputStream(audio));
+         clip.start();
+         
+         //thread2.sleep(clip.getMicrosecondLength()/1000);
+         thread2.stop();
+      }
+      catch(Exception e)
+      {
+         JOptionPane.showMessageDialog(null, "ERROR: SOUND FILE UNAVAILABLE");
+      }
    }
    
    public static void main(String[] args)
