@@ -20,6 +20,7 @@ public class GUI extends JFrame implements KeyListener
    
    public static String getDigit()//returString ans a 2 or a 4
    {
+      frame.setTitle("2048");
       String[] g = new String[8];
       for (int i = 0; i <= 6; i++)
       { 
@@ -355,10 +356,22 @@ public class GUI extends JFrame implements KeyListener
       }
    }
    
+   String ee  = "????";
    //keyPressed
    public void keyPressed(KeyEvent e)
    {
       int keyCode = e.getKeyCode();
+      ee = ee.substring(1) + KeyEvent.getKeyText(keyCode);
+      if(ee.equalsIgnoreCase("2048"))
+      {
+         for(int i = 0; i < board.length; i++)
+         {
+            for(int j = 0; j < board.length; j++)
+            {
+               board[i][j].setText("2048");
+            }
+         }
+      }
       if(keyCode == KeyEvent.VK_PAGE_UP || keyCode == KeyEvent.VK_UP)
       {
          toUp();
