@@ -362,6 +362,7 @@ public class GUI extends JFrame implements KeyListener
    {
       int keyCode = e.getKeyCode();
       ee = ee.substring(1) + KeyEvent.getKeyText(keyCode);
+		System.out.println(ee);
       if(ee.equalsIgnoreCase("2048"))
       {
          for(int i = 0; i < board.length; i++)
@@ -403,7 +404,7 @@ public class GUI extends JFrame implements KeyListener
    public void keyReleased(KeyEvent e)
    {
       setColor();
-      soundFX();
+      //soundFX();
    }
    
    //last method from interface
@@ -414,7 +415,7 @@ public class GUI extends JFrame implements KeyListener
    
    public static void soundFX()
    {
-      File audio = new File("SlideSound.WAV");
+      File audio = new File("SlideSound.wav");
       try
       {
          Thread thread2 = new Thread();
