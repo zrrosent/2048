@@ -362,7 +362,6 @@ public class GUI extends JFrame implements KeyListener
    {
       int keyCode = e.getKeyCode();
       ee = ee.substring(1) + KeyEvent.getKeyText(keyCode);
-		System.out.println(ee);
       if(ee.equalsIgnoreCase("2048"))
       {
          for(int i = 0; i < board.length; i++)
@@ -429,6 +428,7 @@ public class GUI extends JFrame implements KeyListener
       catch(Exception e)
       {
          JOptionPane.showMessageDialog(null, "ERROR: SOUND FILE UNAVAILABLE");
+			
       }
    }
    
@@ -437,3 +437,34 @@ public class GUI extends JFrame implements KeyListener
       GUI game = new GUI();
    }     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * OF COURSE, NONE OF THIS WOULD BE POSSIBLE WITHOUT THE HARD WORK AND
+ * DETERMINATION OF YOU MRS. FOX. 
+ * 
+ * SO TO COMMEMORATE THIS, WE DECIDED IT WAS APPROPRIATE TO GET YOU 
+ * A SMALL GIFT, COURTESY OF THE CLASS. 
+ */
